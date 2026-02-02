@@ -31,7 +31,10 @@ def get_authors(
 
 @app.get("/authors/{author_id}", response_model=Author)
 def get_author_by_id(author_id: int, db: Session = Depends(get_db)):
-    return crud.get_author_by_id(db, author_id)
+    db_author = crud.get_author_by_id(db=db, author_id=author_id)
+    if db_author is None:
+        raise HTTPException(status_code=404, detail="Author not found")
+    return db_author
 
 
 @app.post("/authors/", response_model=Author)
@@ -55,7 +58,10 @@ def get_books(
 
 @app.get("/books/{book_id}/", response_model=Book)
 def get_book(book_id: int, db: Session = Depends(get_db)):
-    return crud.get_book_by_id(db, book_id)
+    db_book = crud.get_book_by_id(db=db, book_id=book_id)
+    if db_book is None:
+        raise HTTPException(status_code=404, detail="Book not found")
+    return db_book
 
 
 @app.post("/books/", response_model=Book)

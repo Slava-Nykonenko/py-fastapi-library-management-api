@@ -11,7 +11,7 @@ class DBAuthor(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     name: Mapped[str] = mapped_column(String(255), unique=True)
-    bio: Mapped[str] = mapped_column(String(500), unique=True)
+    bio: Mapped[str] = mapped_column(String(500))
     books: Mapped[list["DBBook"]] = relationship("DBBook", back_populates="author")
 
 

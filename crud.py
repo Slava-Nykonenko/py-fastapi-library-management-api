@@ -65,7 +65,7 @@ def get_all_books(
     if title:
         query = query.where(DBBook.title.ilike(f"%{title}%"))
     elif author_id:
-        query = query.where(DBBook.author_id.ilike(f"%{author_id}%"))
+        query = query.where(DBBook.author_id == author_id)
     return paginate(db=db, query=query, page=page, size=size)
 
 
